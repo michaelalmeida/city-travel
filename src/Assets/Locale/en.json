@@ -1,0 +1,13 @@
+{
+  "app.submit": "Submit",
+
+  "form.originCity": "City of origin",
+  "form.destinationCity": "City of destination",
+  "form.passengers": "Passengers",
+  "form.date": "Date",
+  "form.addDestination": "Add destination",
+
+  "form.originCity.error": "You must choose the city of origin",
+  "form.destinationCity.error": "You must choose the city of destination",
+  "form.passengers.error": "Select passengers"
+}
