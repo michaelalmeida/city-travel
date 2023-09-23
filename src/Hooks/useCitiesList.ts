@@ -7,10 +7,10 @@ export const useCitiesList = (city: string) => {
   const cityNameToFilter = city.trim().toLowerCase();
 
   useEffect(() => {
-    setIsLoading(true);
+    if (city.length > 0) {
+      setIsLoading(true);
 
-    setTimeout(() => {
-      if (city.length > 0) {
+      setTimeout(() => {
         const filteredCities = citiesData.filter(city =>
           city[0].toString().toLowerCase().includes(cityNameToFilter),
         );
@@ -20,13 +20,20 @@ export const useCitiesList = (city: string) => {
         );
 
         setCities(filteredCitiesNames);
-      }
-      setIsLoading(false);
-    }, 1000);
+
+        setIsLoading(false);
+      }, 1000);
+    }
   }, [city]);
+
+  const clearCities = () => {
+    setCities([]);
+    console.log("clearCities");
+  };
 
   return {
     cities,
     isLoading,
+    clearCities,
   };
 };

@@ -33,6 +33,7 @@ export function AutocompleteInput({
   resultList,
   isLoading = false,
 }: InputProps) {
+  console.log(resultList);
   return (
     <InputWrapper>
       <Label htmlFor={name}>{label}</Label>

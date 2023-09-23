@@ -11,7 +11,7 @@ export const Home = () => {
   const [value, setValue] = useState("");
   const [currentCitySearch, setCurrentCitySearch] = useState("");
 
-  const {cities, isLoading} = useCitiesList(currentCitySearch);
+  const {cities, isLoading, clearCities} = useCitiesList(currentCitySearch);
 
   const debounceSetCityName = useMemo(
     () =>
@@ -22,6 +22,7 @@ export const Home = () => {
   );
 
   const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    clearCities();
     setValue(event.target.value);
     debounceSetCityName(event.target.value);
   };
