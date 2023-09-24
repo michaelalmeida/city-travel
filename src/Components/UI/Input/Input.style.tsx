@@ -10,9 +10,8 @@ import {
   GRAY,
   WHITE,
   MAIN_COLOR_LIGHTER,
+  MAIN_COLOR,
 } from "../../../Constants/Colors";
-
-import DeleteIcon from "../../../Assets/Icons/DeleteIcon.svg";
 
 interface InputProps {
   hasError?: boolean;
@@ -85,4 +84,40 @@ export const LoadingWrapper = styled.div`
   position: absolute;
   right: 6px;
   top: 22px;
+`;
+
+interface NumberInputProps {
+  $hasError?: boolean;
+}
+
+export const NumberInputWrapper = styled.div<NumberInputProps>`
+  display: flex;
+  min-width: 100px;
+  padding: 8px 10px;
+  color: ${props => (props.$hasError ? ERROR : BLACK)};
+  background: ${WHITE};
+  border-radius: ${BORDER_RADIUS_INPUT}px;
+  border: 1px solid ${props => (props.$hasError ? ERROR : GRAY)};
+  font-size: ${FONT_SIZE_SMALL}px;
+  box-sizing: border-box;
+`;
+
+export const NumberInput = styled.input`
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: ${FONT_SIZE_SMALL}px;
+  box-sizing: border-box;
+`;
+
+export const ChangeNumberValueButton = styled.button`
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: ${MAIN_COLOR_LIGHTER};
+  border-radius: ${BORDER_RADIUS_INPUT}px;
+
+  &:hover {
+    background: ${MAIN_COLOR};
+  }
 `;

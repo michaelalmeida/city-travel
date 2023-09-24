@@ -21,6 +21,7 @@ interface InputProps {
   errorMessage?: string;
   resultList: string[];
   isLoading: boolean;
+  clearInput: () => void;
 }
 
 export function AutocompleteInput({
@@ -32,14 +33,17 @@ export function AutocompleteInput({
   errorMessage,
   resultList,
   isLoading = false,
+  clearInput,
 }: InputProps) {
-  console.log(resultList);
   return (
     <InputWrapper>
       <Label htmlFor={name}>{label}</Label>
       <Input value={value} onChange={onChange} id={name} name={name} />
       {value.length > 0 && !isLoading ? (
-        <DeleteButton aria-label="Clear input" type="button">
+        <DeleteButton
+          aria-label="Clear input"
+          type="button"
+          onClick={clearInput}>
           <DeleteIcon />
         </DeleteButton>
       ) : null}
@@ -49,9 +53,9 @@ export function AutocompleteInput({
         </LoadingWrapper>
       )}
       {resultList.length > 0 ? (
-        <List role="listbox" tabIndex={-1}>
+        <List tabIndex={-1}>
           {resultList.map((item, index) => (
-            <ListItem role="option" key={`${item}_${index}`} tabIndex={0}>
+            <ListItem key={`${item}_${index}`} tabIndex={0}>
               {item}
             </ListItem>
           ))}

@@ -1,13 +1,13 @@
 import {useEffect, useState} from "react";
 import citiesData from "./data.json";
 
-export const useCitiesList = (city: string) => {
+export const useCitiesListRequest = (cityName: string) => {
   const [cities, setCities] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const cityNameToFilter = city.trim().toLowerCase();
+  const cityNameToFilter = cityName.trim().toLowerCase();
 
   useEffect(() => {
-    if (city.length > 0) {
+    if (cityName.length > 0) {
       setIsLoading(true);
 
       setTimeout(() => {
@@ -24,16 +24,15 @@ export const useCitiesList = (city: string) => {
         setIsLoading(false);
       }, 1000);
     }
-  }, [city]);
+  }, [cityName]);
 
-  const clearCities = () => {
+  const reset = () => {
     setCities([]);
-    console.log("clearCities");
   };
 
   return {
-    cities,
+    data: cities,
     isLoading,
-    clearCities,
+    reset,
   };
 };
