@@ -37,7 +37,7 @@ export const NumberInput = ({
   };
 
   return (
-    <>
+    <div>
       <Label htmlFor={name}>{label}</Label>
       <NumberInputWrapper $hasError={hasError}>
         <ChangeNumberValueButton onClick={() => decrementOrIncrement(value)}>
@@ -58,6 +58,6 @@ export const NumberInput = ({
       {hasError ? (
         <ErrorMessage role="alert">{errorMessage}</ErrorMessage>
       ) : null}
-    </>
+    </div>
   );
 };

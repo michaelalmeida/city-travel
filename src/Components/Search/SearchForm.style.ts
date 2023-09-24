@@ -20,4 +20,5 @@ export const SecondaryFieldsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex-basis: 108px;
+  gap: 20px;
 `;

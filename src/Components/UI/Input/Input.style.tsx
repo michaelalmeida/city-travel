@@ -21,6 +21,7 @@ export const InputWrapper = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
+  width: 100%;
 `;
 
 export const Input = styled.input<InputProps>`
@@ -108,6 +109,7 @@ export const NumberInput = styled.input`
   background: transparent;
   font-size: ${FONT_SIZE_SMALL}px;
   box-sizing: border-box;
+  text-align: center;
 `;
 
 export const ChangeNumberValueButton = styled.button`
@@ -116,8 +118,31 @@ export const ChangeNumberValueButton = styled.button`
   border: none;
   background: ${MAIN_COLOR_LIGHTER};
   border-radius: ${BORDER_RADIUS_INPUT}px;
+  cursor: pointer;
 
   &:hover {
     background: ${MAIN_COLOR};
+  }
+`;
+
+export const DateInputWrapper = styled.div<NumberInputProps>`
+  display: flex;
+  min-width: 100px;
+  padding: 8px 10px;
+  color: ${props => (props.$hasError ? ERROR : BLACK)};
+  background: ${WHITE};
+  border-radius: ${BORDER_RADIUS_INPUT}px;
+  border: 1px solid ${props => (props.$hasError ? ERROR : GRAY)};
+  font-size: ${FONT_SIZE_SMALL}px;
+  box-sizing: border-box;
+  flex-direction: column;
+
+  .react-datepicker-wrapper {
+    width: 100px;
+  }
+
+  input {
+    width: 100px;
+    border: 0;
   }
 `;

@@ -1,5 +1,6 @@
 import {createGlobalStyle} from "styled-components";
 import {BACKGROUND, BLACK, MAIN_COLOR} from "../Constants/Colors";
+import backgroundSVG from "../Assets/Img/Background.svg";
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -14,7 +15,9 @@ const GlobalStyle = createGlobalStyle`
     color: ${BLACK};
     background-color: ${BACKGROUND};
     font-family: 'Inter', sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.4rem;  
+    background: url(${backgroundSVG}) no-repeat center center fixed;
+
   }
 
   a {
