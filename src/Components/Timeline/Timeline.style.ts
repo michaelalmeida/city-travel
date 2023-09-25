@@ -14,7 +14,7 @@ export const TimelineItemWrapper = styled.div`
 `;
 
 interface LineProps {
-  lastItem?: boolean;
+  $lastItem?: boolean;
 }
 
 export const Line = styled.div<LineProps>`
@@ -36,7 +36,7 @@ export const Line = styled.div<LineProps>`
     left: 5px;
     border-left: 2px dotted ${GRAY};
 
-    height: ${props => (props.lastItem ? 0 : "52px")};
+    height: ${props => (props.$lastItem ? 0 : "52px")};
   }
 `;
 

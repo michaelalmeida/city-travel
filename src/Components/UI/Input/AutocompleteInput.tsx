@@ -40,7 +40,13 @@ export function AutocompleteInput({
   return (
     <InputWrapper>
       <Label htmlFor={name}>{label}</Label>
-      <Input value={value} onChange={onChange} id={name} name={name} />
+      <Input
+        value={value}
+        onChange={onChange}
+        id={name}
+        name={name}
+        $hasError={hasError}
+      />
       {value.length > 0 && !isLoading ? (
         <DeleteButton
           aria-label="Clear input"

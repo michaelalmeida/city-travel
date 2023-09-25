@@ -14,6 +14,7 @@ interface AutocompleteWithRequestProps {
   clearInput: (index: number) => void;
   onChange: (event: React.ChangeEvent<HTMLInputElement>, index: number) => void;
   onItemSelect: (item: string, index: number) => void;
+  errorMessage?: string;
 }
 export const AutocompleteWithRequest = ({
   index,
@@ -24,6 +25,7 @@ export const AutocompleteWithRequest = ({
   onChange,
   clearInput,
   onItemSelect,
+  errorMessage,
 }: AutocompleteWithRequestProps) => {
   const [currentCitySearch, setCurrentCitySearch] = useState("");
   const {data, isLoading, reset} = useCitiesListRequest(currentCitySearch);
@@ -63,6 +65,7 @@ export const AutocompleteWithRequest = ({
       clearInput={clearInputHandler}
       hasError={hasError}
       onItemSelect={value => onItemSelectHandler(value, index)}
+      errorMessage={errorMessage}
     />
   );
 };

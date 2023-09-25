@@ -13,6 +13,7 @@ interface InputProps {
   onChange: (value: number) => void;
   hasError?: boolean;
   errorMessage?: string;
+  min?: number;
 }
 
 export const NumberInput = ({
@@ -22,6 +23,7 @@ export const NumberInput = ({
   onChange,
   hasError,
   errorMessage,
+  min = 0,
 }: InputProps) => {
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -31,7 +33,7 @@ export const NumberInput = ({
   const decrementOrIncrement = (value: number, increment?: boolean) => {
     if (increment) {
       onChange(value + 1);
-    } else {
+    } else if (value > 0) {
       onChange(value - 1);
     }
   };
@@ -49,6 +51,7 @@ export const NumberInput = ({
           value={value}
           onChange={onChangeHandler}
           id={name}
+          min={min}
         />
         <ChangeNumberValueButton
           onClick={() => decrementOrIncrement(value, true)}>

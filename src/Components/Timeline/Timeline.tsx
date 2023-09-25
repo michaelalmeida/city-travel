@@ -4,6 +4,7 @@ export interface ElementsProps {
   children: React.ReactNode;
   removable?: boolean;
   lastItem?: boolean;
+  onRemoveItem?: () => void;
 }
 
 interface TimelineProps {

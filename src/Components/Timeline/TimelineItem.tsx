@@ -12,17 +12,22 @@ import {ReactComponent as PinMapIcon} from "./../../Assets/Icons/PinMap.svg";
 export const TimelineItem = ({
   children,
   removable,
-  lastItem,
+  lastItem = false,
+  onRemoveItem,
 }: ElementsProps) => {
+  const handleRemoveClick = () => {
+    onRemoveItem && onRemoveItem();
+  };
+
   return (
     <TimelineItemWrapper>
-      <Line lastItem={lastItem}>
+      <Line $lastItem={lastItem}>
         {lastItem ? <PinMapIcon /> : <PinCircleIcon />}
       </Line>
       <Content>{children}</Content>
       <RemoveContainer>
         {removable && (
-          <button type="button" aria-label="Remove">
+          <button type="button" aria-label="Remove" onClick={handleRemoveClick}>
             <DeleteIcon />
           </button>
         )}

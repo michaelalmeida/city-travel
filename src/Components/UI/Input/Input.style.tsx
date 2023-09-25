@@ -14,7 +14,7 @@ import {
 } from "../../../Constants/Colors";
 
 interface InputProps {
-  hasError?: boolean;
+  $hasError?: boolean;
 }
 
 export const InputWrapper = styled.div`
@@ -27,10 +27,10 @@ export const InputWrapper = styled.div`
 export const Input = styled.input<InputProps>`
   width: 100%;
   padding: 8px 32px 8px 12px;
-  color: ${props => (props.hasError ? ERROR : BLACK)};
+  color: ${props => (props.$hasError ? ERROR : BLACK)};
   background: ${WHITE};
   border-radius: ${BORDER_RADIUS_INPUT}px;
-  border: 1px solid ${props => (props.hasError ? ERROR : GRAY)};
+  border: 1px solid ${props => (props.$hasError ? ERROR : GRAY)};
   font-size: ${FONT_SIZE_SMALL}px;
   box-sizing: border-box;
 `;
