@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
-import {useSearchParams} from "react-router-dom";
+import {useSearchParams, useNavigate} from "react-router-dom";
+import {ReactComponent as LoadingSpinIcon} from "../../Assets/Icons/Loading.svg";
 
 import {DateInput, NumberInput} from "../../Components/UI";
 import {useTranslation} from "react-i18next";
@@ -16,6 +17,8 @@ import {TimelineItem} from "../Timeline/TimelineItem";
 import {AutocompleteWithRequest} from "./AutocompleteWithRequest";
 import {ReactComponent as AddIcon} from "../../Assets/Icons/AddCircle.svg";
 import {Button, LinkButton} from "../UI/Button";
+import {useCalculateDistanceCitiesRequest} from "../../Hooks/useCalculateDistanceCitiesRequest";
+import {Route} from "../../Constants/Routes";
 
 interface ICity {
   index: number;
@@ -29,7 +32,10 @@ interface ICity {
 
 export const SearchForm = () => {
   const {t} = useTranslation();
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const {calculateDistances, isLoading, totalDistance, distances} =
+    useCalculateDistanceCitiesRequest();
   const [passengers, setPassengers] = useState(1);
   const [date, setDate] = useState(new Date());
   const [cities, setCities] = useState<ICity[]>([
@@ -55,12 +61,12 @@ export const SearchForm = () => {
   const [nextIndex, setNextIndex] = useState(cities.length);
 
   useEffect(() => {
-    const passangers = searchParams.get("passengers");
+    const passengersParam = searchParams.get("passengers");
     const date = searchParams.get("date");
     const cities = searchParams.get("cities");
 
-    if (passangers) {
-      setPassengers(parseInt(passangers));
+    if (passengersParam) {
+      setPassengers(parseInt(passengersParam));
     }
     if (date) {
       setDate(new Date(date));
@@ -83,6 +89,18 @@ export const SearchForm = () => {
       setCities(newCities);
     }
   }, []);
+
+  useEffect(() => {
+    if (totalDistance !== 0 && distances.length !== 0 && !isLoading) {
+      const params = new URLSearchParams();
+      params.append("passengers", passengers.toString());
+      params.append("total", totalDistance.toString());
+      params.append("distances", JSON.stringify(distances));
+      params.append("date", date.toISOString());
+
+      navigate(`${Route.RESULT}?${params.toString()}`);
+    }
+  }, [totalDistance, distances, isLoading]);
 
   const inputHandler = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -177,16 +195,23 @@ export const SearchForm = () => {
     setCities(newCities);
   }, [cities]);
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    validateCities();
-  };
-
   const shouldSubmitButtonBeDisabled = useMemo(() => {
     return cities.some(
       city => city.hasError || city.value.length === 0 || passengers < 1,
     );
   }, [cities]);
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    validateCities();
+
+    if (!shouldSubmitButtonBeDisabled) {
+      const arrayOfCities = cities.map(city =>
+        city.value.toLocaleLowerCase().trim(),
+      );
+      calculateDistances(arrayOfCities);
+    }
+  };
 
   return (
     <Form onSubmit={onSubmit}>
@@ -206,11 +231,11 @@ export const SearchForm = () => {
                   <AutocompleteWithRequest
                     name={name}
                     value={value}
-                    onChange={event => inputHandler(event, index)}
+                    onChange={event => inputHandler(event, position)}
                     label={label}
                     clearInput={() => onClearInput(position)}
                     hasError={hasError}
-                    index={index}
+                    index={position}
                     isLoading={false}
                     onItemSelect={onItemSelect}
                     errorMessage={errorMessage}
@@ -250,8 +275,10 @@ export const SearchForm = () => {
         </SecondaryFieldsWrapper>
       </InputsWrapper>
       <SubmitWrapper>
-        <Button type="submit" disabled={shouldSubmitButtonBeDisabled}>
-          {t("app.submit")}
+        <Button
+          type="submit"
+          disabled={shouldSubmitButtonBeDisabled || isLoading}>
+          {t("app.submit")} {isLoading && <LoadingSpinIcon />}
         </Button>
       </SubmitWrapper>
     </Form>

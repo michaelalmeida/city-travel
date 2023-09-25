@@ -1,5 +1,6 @@
 {
   "app.submit": "Submit",
+  "app.back": "Back",
 
   "form.originCity": "City of origin",
   "form.destinationCity": "City of destination",
@@ -9,5 +10,7 @@
 
   "form.originCity.error": "You must choose the city of origin",
   "form.destinationCity.error": "You must choose the city of destination",
-  "form.passengers.error": "Select passengers"
+  "form.passengers.error": "Select passengers",
+
+  "results.totalKM": "is total distance"
 }
