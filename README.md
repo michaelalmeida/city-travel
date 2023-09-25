@@ -12,7 +12,7 @@ A toast component that can be integrated with web applications
 - [Env](#env)
 - [Installation](#installation)
 - [Running the Project](#running-the-project)
-- [Toast Documentation](#toast-documentation)
+- [Comments](#comments)
 
 ## Main Stack
 
@@ -64,6 +64,6 @@ Then you can execute the same command in the /client folder to run the app in th
 
 ## Comments
 
-- Unfortunately I could only write tests for NumberInput.test.tsx;
-- The result pages has not style;
+- Unfortunately, I could only write tests for NumberInput.test.tsx;
+- The result pages have not style;
 - I only used library for the date component.
