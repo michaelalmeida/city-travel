@@ -54,6 +54,7 @@ export const NumberInput = ({
           onChange={onChangeHandler}
           id={name}
           min={min}
+          aria-label={name}
         />
         <ChangeNumberValueButton
           onClick={() => decrementOrIncrement(value, true)}

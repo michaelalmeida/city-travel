@@ -26,8 +26,8 @@ export const useCalculateDistanceCitiesRequest = () => {
   const [distances, setDistances] = useState<number[]>([]);
   const [totalDistance, setTotalDistance] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [cityList, setCityList] = useState<string[]>([]);
+  const [hasError, setHasError] = useState(false);
 
   const calculateDistances = (cities: string[]) => {
     setIsLoading(true);
@@ -40,6 +40,16 @@ export const useCalculateDistanceCitiesRequest = () => {
       for (let i = 0; i < cities.length - 1; i++) {
         const city1 = cities[i];
         const city2 = cities[i + 1];
+
+        if (
+          city1 === "fail" ||
+          city2 === "fail" ||
+          city1 === "dijon" ||
+          city2 === "dijon"
+        ) {
+          setHasError(true);
+          break;
+        }
 
         const city1Data = citiesData.find(
           data => data[0].toString().toLocaleLowerCase().trim() === city1,
@@ -62,8 +72,9 @@ export const useCalculateDistanceCitiesRequest = () => {
           );
           totalDistance += cityDistance;
           cityDistances.push(cityDistance);
+          setHasError(false);
         } else {
-          setError(`City data not found for ${city1} or ${city2}`);
+          setHasError(true);
           setIsLoading(false);
           return;
         }
@@ -80,7 +91,7 @@ export const useCalculateDistanceCitiesRequest = () => {
     totalDistance,
     distances,
     isLoading,
-    error,
     cities: cityList,
+    hasError,
   };
 };

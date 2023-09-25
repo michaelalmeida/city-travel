@@ -19,6 +19,5 @@ export const ModalWrapper = styled.div`
 
   @media screen and (max-width: ${MAX_SCREEN_SIZE}px) {
     width: 100%;
-    height: 100vh;
   }
 `;

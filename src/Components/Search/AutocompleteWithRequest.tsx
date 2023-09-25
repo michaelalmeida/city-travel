@@ -40,7 +40,7 @@ export const AutocompleteWithRequest = ({
 
   const updateFieldHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     reset();
-    debounceSetCityName(value);
+    debounceSetCityName(event.target.value);
     onChange(event, index);
   };
 

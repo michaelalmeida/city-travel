@@ -9,6 +9,6 @@ export const Container = styled.div`
   height: 100vh;
 
   @media screen and (max-width: ${MAX_SCREEN_SIZE}px) {
-    height: auto;
+    height: 100vh;
   }
 `;

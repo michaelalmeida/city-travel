@@ -13,6 +13,7 @@ export const Result = () => {
   const {t} = useTranslation();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const hasError = searchParams.get("hasError") === "true";
 
   const [total, setTotal] = useState(0);
   const [passengers, setPassengers] = useState(1);
@@ -54,19 +55,25 @@ export const Result = () => {
     <Container>
       <Modal>
         <>
-          {citiesNames.map(city => (
-            <p key={city}>{city}</p>
-          ))}
-          {distances.map(distance => (
-            <p key={distance}>{distance}</p>
-          ))}
-          <p>
-            {total} km {t("results.totalKM")}
-          </p>
-          <p>
-            {passengers} {t("form.passengers")}
-          </p>
-          <p>{dateFormatter(date)}</p>
+          {hasError ? (
+            <h1>{t("results.error")}</h1>
+          ) : (
+            <>
+              {citiesNames.map(city => (
+                <p key={city}>{city}</p>
+              ))}
+              {distances.map(distance => (
+                <p key={distance}>{distance}</p>
+              ))}
+              <p>
+                {total} km {t("results.totalKM")}
+              </p>
+              <p>
+                {passengers} {t("form.passengers")}
+              </p>
+              <p>{dateFormatter(date)}</p>
+            </>
+          )}
 
           <Button onClick={() => navigate(-1)}>{t("app.back")}</Button>
         </>

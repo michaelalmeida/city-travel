@@ -12,5 +12,6 @@
   "form.destinationCity.error": "You must choose the city of destination",
   "form.passengers.error": "Select passengers",
 
-  "results.totalKM": "is total distance"
+  "results.totalKM": "is total distance",
+  "results.error": "Oops! Something went wrong!"
 }

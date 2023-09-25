@@ -1,46 +1,69 @@
-# Getting Started with Create React App
+# City-travel
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+<img src="https://i.ibb.co/N7fpbZH/Screenshot-2023-09-25-at-23-32-31.png" >
+</p>
 
-## Available Scripts
+A toast component that can be integrated with web applications
 
-In the project directory, you can run:
+## Summary
 
-### `npm start`
+- [Main Stack](#main-stack)
+- [Env](#env)
+- [Installation](#installation)
+- [Running the Project](#running-the-project)
+- [Toast Documentation](#toast-documentation)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Main Stack
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+| Package          | Description                                       |
+| ---------------- | ------------------------------------------------- |
+| React            | A JavaScript library for building user interfaces |
+| Typescript       | A superset of the JavaScript language             |
+| styled-component | CSS as Components                                 |
+| RTL              | JavaScript Testing utility for React              |
+| Jest             | JavaScript Testing Framework                      |
 
-### `npm test`
+## Env
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Node version: v18.12.1
+Npm version: 8.19.2
 
-### `npm run build`
+## Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Clone the repository
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+$ git clone https://github.com/michaelalmeida/city-travel.git
+$ cd toast
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+When that's done, install the project dependencies, go to the server folder and run:
 
-### `npm run eject`
+```bash
+$ npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Running the Project
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+After finish the previous step ([installation](#installation)) , you can start the project:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Starting running the server, inside the /server folder execute:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+$ npm start
+```
 
-## Learn More
+Then you can execute the same command in the /client folder to run the app in the development mode. Open http://localhost:3000 to view it in the browser.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+| `npm <script>` | Description                         |
+| -------------- | ----------------------------------- |
+| `start`        | Serves your app at `localhost:3000` |
+| `build`        | Builds the application              |
+| `test`         | Runs unit tests                     |
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Comments
+
+- Unfortunately I could only write tests for NumberInput.test.tsx;
+- The result pages has not style;
+- I only used library for the date component.

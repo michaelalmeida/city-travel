@@ -17,7 +17,7 @@ export interface ICity {
 export const useSearchForm = () => {
   const {t} = useTranslation();
   const navigate = useNavigate();
-  const {calculateDistances, isLoading, totalDistance, distances} =
+  const {calculateDistances, isLoading, totalDistance, distances, hasError} =
     useCalculateDistanceCitiesRequest();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -77,6 +77,12 @@ export const useSearchForm = () => {
   };
 
   useEffect(() => {
+    if (hasError) {
+      const params = new URLSearchParams();
+      params.append("hasError", hasError.toString());
+      navigate(`${Route.RESULT}?${params.toString()}`);
+    }
+
     if (totalDistance !== 0 && distances.length !== 0 && !isLoading) {
       const params = new URLSearchParams();
       params.append("passengers", passengers.toString());
@@ -84,10 +90,11 @@ export const useSearchForm = () => {
       params.append("distances", JSON.stringify(distances));
       params.append("date", date.toISOString());
       params.append("cities", JSON.stringify(cityNames));
+      params.append("hasError", hasError.toString());
 
       navigate(`${Route.RESULT}?${params.toString()}`);
     }
-  }, [totalDistance, distances, isLoading]);
+  }, [totalDistance, distances, isLoading, hasError]);
 
   useEffect(() => {
     const passengersParam = searchParams.get("passengers");

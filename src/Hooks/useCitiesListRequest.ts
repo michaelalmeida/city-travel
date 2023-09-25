@@ -19,7 +19,9 @@ export const useCitiesListRequest = (cityName: string) => {
           city[0].toString(),
         );
 
-        setCities(filteredCitiesNames);
+        // Simulating that the endpoint will not return more than 5 cities
+        const first10Cities = filteredCitiesNames.slice(0, 5);
+        setCities(first10Cities);
 
         setIsLoading(false);
       }, 1000);
