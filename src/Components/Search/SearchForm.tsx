@@ -1,8 +1,6 @@
-import {useMemo, useState} from "react";
-import {AutocompleteInput, DateInput, NumberInput} from "../../Components/UI";
+import {useState} from "react";
+import {DateInput, NumberInput} from "../../Components/UI";
 import {useTranslation} from "react-i18next";
-import {useCitiesListRequest} from "../../Hooks/useCitiesListRequest";
-import debounce from "lodash.debounce";
 import {
   Form,
   MainSearchFieldsWrapper,
@@ -10,10 +8,10 @@ import {
 } from "./SearchForm.style";
 import {TimelineWrapper} from "../Timeline/Timeline.style";
 import {TimelineItem} from "../Timeline/TimelineItem";
+import {AutocompleteWithRequest} from "./AutocompleteWithRequest";
 
 export const SearchForm = () => {
   const {t} = useTranslation();
-  const [currentCitySearch, setCurrentCitySearch] = useState("");
   const [passengers, setPassengers] = useState(1);
   const [date, setDate] = useState(new Date());
   const [cities, setCities] = useState([
@@ -22,7 +20,6 @@ export const SearchForm = () => {
       label: t("form.originCity"),
       errorMessage: t("form.originCity.error"),
       hasError: false,
-      isLoading: false,
       resultList: [],
       value: "",
     },
@@ -31,33 +28,19 @@ export const SearchForm = () => {
       label: t("form.destinationCity"),
       errorMessage: t("form.destinationCity.error"),
       hasError: false,
-      isLoading: false,
-      resultList: [],
       value: "",
     },
   ]);
-
-  const {data, isLoading, reset} = useCitiesListRequest(currentCitySearch);
-
-  const debounceSetCityName = useMemo(
-    () =>
-      debounce((value: string) => {
-        setCurrentCitySearch(value);
-      }, 500),
-    [],
-  );
 
   const inputHandler = (
     event: React.ChangeEvent<HTMLInputElement>,
     index: number,
   ) => {
     const value = event.target.value;
-    reset();
 
     const newCities = [...cities];
     newCities[index].value = value;
     setCities(newCities);
-    debounceSetCityName(value);
   };
 
   const onClearInput = (index: number) => {
@@ -74,26 +57,31 @@ export const SearchForm = () => {
     event.preventDefault();
   };
 
+  const onItemSelect = (item: string, index: number) => {
+    const newCities = [...cities];
+    newCities[index].value = item;
+    setCities(newCities);
+  };
+
   return (
     <Form onSubmit={onSubmit}>
       <MainSearchFieldsWrapper>
         <TimelineWrapper>
-          {cities.map(
-            ({name, value, hasError, label, isLoading, resultList}, index) => (
-              <TimelineItem key={index} lastItem={cities.length === index + 1}>
-                <AutocompleteInput
-                  name={name}
-                  value={value}
-                  onChange={event => inputHandler(event, index)}
-                  label={label}
-                  resultList={resultList}
-                  isLoading={isLoading}
-                  clearInput={() => onClearInput(index)}
-                  hasError={hasError}
-                />
-              </TimelineItem>
-            ),
-          )}
+          {cities.map(({name, value, hasError, label}, index) => (
+            <TimelineItem key={index} lastItem={cities.length === index + 1}>
+              <AutocompleteWithRequest
+                name={name}
+                value={value}
+                onChange={event => inputHandler(event, index)}
+                label={label}
+                clearInput={() => onClearInput(index)}
+                hasError={hasError}
+                index={index}
+                isLoading={false}
+                onItemSelect={onItemSelect}
+              />
+            </TimelineItem>
+          ))}
         </TimelineWrapper>
       </MainSearchFieldsWrapper>
       <SecondaryFieldsWrapper>

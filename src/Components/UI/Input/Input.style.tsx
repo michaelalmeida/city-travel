@@ -94,7 +94,8 @@ interface NumberInputProps {
 export const NumberInputWrapper = styled.div<NumberInputProps>`
   display: flex;
   min-width: 100px;
-  padding: 8px 10px;
+  max-height: 32px;
+  padding: 4px 10px;
   color: ${props => (props.$hasError ? ERROR : BLACK)};
   background: ${WHITE};
   border-radius: ${BORDER_RADIUS_INPUT}px;
@@ -113,8 +114,8 @@ export const NumberInput = styled.input`
 `;
 
 export const ChangeNumberValueButton = styled.button`
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border: none;
   background: ${MAIN_COLOR_LIGHTER};
   border-radius: ${BORDER_RADIUS_INPUT}px;

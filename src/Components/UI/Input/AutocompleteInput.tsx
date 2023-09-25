@@ -22,6 +22,7 @@ interface InputProps {
   resultList: string[];
   isLoading: boolean;
   clearInput: () => void;
+  onItemSelect: (item: string) => void;
 }
 
 export function AutocompleteInput({
@@ -34,6 +35,7 @@ export function AutocompleteInput({
   resultList,
   isLoading = false,
   clearInput,
+  onItemSelect,
 }: InputProps) {
   return (
     <InputWrapper>
@@ -55,7 +57,10 @@ export function AutocompleteInput({
       {resultList.length > 0 ? (
         <List tabIndex={-1}>
           {resultList.map((item, index) => (
-            <ListItem key={`${item}_${index}`} tabIndex={0}>
+            <ListItem
+              key={`${item}_${index}`}
+              tabIndex={0}
+              onClick={() => onItemSelect(item)}>
               {item}
             </ListItem>
           ))}
