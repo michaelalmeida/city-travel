@@ -11,17 +11,21 @@ const dateFormatter = (date: Date) => {
 
 export const Result = () => {
   const {t} = useTranslation();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const [total, setTotal] = useState(0);
   const [passengers, setPassengers] = useState(1);
   const [date, setDate] = useState(new Date());
+  const [citiesNames, setCitiesNames] = useState([]);
+  const [distances, setDistances] = useState([]);
 
   useEffect(() => {
     const passengersParam = searchParams.get("passengers");
     const totalParam = searchParams.get("total");
     const date = searchParams.get("date");
+    const cities = searchParams.getAll("cities");
+    const distances = searchParams.getAll("distances");
 
     if (passengersParam) {
       setPassengers(parseInt(passengersParam));
@@ -34,12 +38,28 @@ export const Result = () => {
     if (date) {
       setDate(new Date(date));
     }
+
+    if (cities.length > 0) {
+      const citiesNameAsArray = JSON.parse(cities[0]);
+      setCitiesNames(citiesNameAsArray);
+    }
+
+    if (distances.length > 0) {
+      const distanceAsArray = JSON.parse(distances[0]);
+      setDistances(distanceAsArray);
+    }
   }, []);
 
   return (
     <Container>
       <Modal>
         <>
+          {citiesNames.map(city => (
+            <p key={city}>{city}</p>
+          ))}
+          {distances.map(distance => (
+            <p key={distance}>{distance}</p>
+          ))}
           <p>
             {total} km {t("results.totalKM")}
           </p>

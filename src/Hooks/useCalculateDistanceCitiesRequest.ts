@@ -27,9 +27,11 @@ export const useCalculateDistanceCitiesRequest = () => {
   const [totalDistance, setTotalDistance] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [cityList, setCityList] = useState<string[]>([]);
 
   const calculateDistances = (cities: string[]) => {
     setIsLoading(true);
+    setCityList(cities);
 
     setTimeout(() => {
       let totalDistance = 0;
@@ -79,5 +81,6 @@ export const useCalculateDistanceCitiesRequest = () => {
     distances,
     isLoading,
     error,
+    cities: cityList,
   };
 };

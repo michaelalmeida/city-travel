@@ -42,7 +42,9 @@ export const NumberInput = ({
     <div>
       <Label htmlFor={name}>{label}</Label>
       <NumberInputWrapper $hasError={hasError}>
-        <ChangeNumberValueButton onClick={() => decrementOrIncrement(value)}>
+        <ChangeNumberValueButton
+          onClick={() => decrementOrIncrement(value)}
+          type="button">
           -
         </ChangeNumberValueButton>
         <NumberInputElement
@@ -54,7 +56,8 @@ export const NumberInput = ({
           min={min}
         />
         <ChangeNumberValueButton
-          onClick={() => decrementOrIncrement(value, true)}>
+          onClick={() => decrementOrIncrement(value, true)}
+          type="button">
           +
         </ChangeNumberValueButton>
       </NumberInputWrapper>
